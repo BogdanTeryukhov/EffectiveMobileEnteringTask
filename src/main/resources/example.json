@@ -1,0 +1,28 @@
+[
+  {
+    "name" : "laptop",
+    "description" : "simple laptop",
+    "organization" : "beeLine",
+    "price" : 120000,
+    "numOnTheStock" : 120,
+    "infoAboutSales" : "info",
+    "reviews" : "reviews",
+    "keyWords" : "keyWords",
+    "characteristics" : "characteristics",
+    "grades" : "grades"
+  },
+
+  {
+    "name" : "computer",
+    "description" : "simple computer",
+    "organization" : "megaphone",
+    "price" : 300000,
+    "numOnTheStock" : 10,
+    "infoAboutSales" : "info",
+    "reviews" : "reviews",
+    "keyWords" : "keyWords",
+    "characteristics" : "characteristics",
+    "grades" : "grades"
+  }
+]
+
