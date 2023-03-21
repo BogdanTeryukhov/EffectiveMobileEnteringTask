@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,6 +25,9 @@ public class User {
     private double balance;
     @Column(name = "active")
     private boolean active;
+
+    @OneToMany
+    private List<Notification> notifications;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "role", joinColumns = @JoinColumn(name = "id"))
@@ -47,6 +51,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", balance=" + balance +
                 ", active=" + active +
+                ", notifications=" + notifications +
                 ", roles=" + roles +
                 '}';
     }
