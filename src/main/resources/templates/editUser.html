@@ -1,0 +1,42 @@
+</head>
+
+<body>
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<main>
+    <form action="#" method="post" th:action="@{/admin/users/{id} (id=${user.id})}" th:object="${user}">
+        <h1 class="h3 mb-3 fw-normal">Please update an account</h1>
+        <div class="form-floating">
+            <input th:field="*{username}" type="text" class="form-control col-5" id="floatingUsername" placeholder="Username">
+            <label for="floatingUsername">Username</label>
+        </div>
+        <div class="form-floating">
+            <input th:field="*{email}" type="email" class="form-control col-5" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating">
+            <input th:field="*{password}" type="password" class="form-control col-5" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-floating">
+            <input th:field="*{balance}" type="text" class="form-control col-5" id="floatingBalance" placeholder="Balance">
+            <label for="floatingBalance">Balance</label>
+        </div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary " type="submit" href="/registration">Apply changes</button>
+    </form>
+</main>
+</body>
+</html>

@@ -30,11 +30,12 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    public User(String username, String email, String password, double balance) {
+    public User(String username, String email, String password, double balance, boolean active) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.balance = balance;
+        this.active = active;
     }
 
     @Override
@@ -45,6 +46,8 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", balance=" + balance +
+                ", active=" + active +
+                ", roles=" + roles +
                 '}';
     }
 }
