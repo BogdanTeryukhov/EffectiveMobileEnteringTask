@@ -1,26 +1,18 @@
 package com.example.effectivemobileentertask.Controller;
 
-import com.example.effectivemobileentertask.Entity.Product;
-import com.example.effectivemobileentertask.Repository.ProductsRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/admin")
+@Controller
 public class MainController {
-    @Autowired
-    private ProductsRepo productsRepo;
 
-    @PostMapping("/addNewProduct")
-    public String addNewProduct(@RequestBody Product product){
-        productsRepo.save(product);
-        return "Product have been saved ...";
+    @GetMapping("/")
+    public String home(){
+        return "home";
     }
 
-    @GetMapping("/getListOfProducts")
-    public List<Product> getListOfProducts(){
-        return productsRepo.findAll();
+    @GetMapping("/hello")
+    public String hello(){
+        return "hello";
     }
 }

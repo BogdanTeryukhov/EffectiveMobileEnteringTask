@@ -15,6 +15,4 @@ public interface UserService {
     User getByEmail(String email);
     boolean isExists(String email);
 
-    boolean activationUser(String code);
-    User findUserByActivationCode(String code);
 }
