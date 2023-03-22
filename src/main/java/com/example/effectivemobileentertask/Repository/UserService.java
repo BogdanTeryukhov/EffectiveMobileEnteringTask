@@ -1,6 +1,7 @@
 package com.example.effectivemobileentertask.Repository;
 
 import com.example.effectivemobileentertask.Entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

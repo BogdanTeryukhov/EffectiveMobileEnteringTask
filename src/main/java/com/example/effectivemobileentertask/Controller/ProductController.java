@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/admin")
+@RequestMapping("/admin")
 public class ProductController {
     @Autowired
     private ProductsRepo productsRepo;
@@ -23,4 +23,5 @@ public class ProductController {
     public List<Product> getListOfProducts(){
         return productsRepo.findAll();
     }
+
 }

@@ -1,5 +1,7 @@
 package com.example.effectivemobileentertask.Config;
 
+import com.example.effectivemobileentertask.Repository.UserService;
+import com.example.effectivemobileentertask.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +18,7 @@ import javax.sql.DataSource;
 public class WebSecurityConfig {
 
     @Autowired
-    DataSource dataSource;
+    private UserServiceImpl userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -46,10 +48,7 @@ public class WebSecurityConfig {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("select email,password,active from users where email=?")
-                .authoritiesByUsernameQuery("select users.email,role.roles from users inner join role on users.id=role.id where users.email=?");
+        authenticationManagerBuilder.userDetailsService(userService)
+                .passwordEncoder(NoOpPasswordEncoder.getInstance());
     }
 }

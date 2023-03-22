@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+
 
 @Data
 @Entity
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     private String name;
@@ -22,12 +24,12 @@ public class Product {
     private int numOnTheStock;
     private String infoAboutSales;
 
-    private String reviews;
-    private String keyWords;
-    private String characteristics;
-    private String grades;
+    private String[] reviews;
+    private String[] keyWords;
+    private String[] characteristics;
+    private String[] grades;
 
-    public Product(String name, String description, String organization, int price, int numOnTheStock, String infoAboutSales, String reviews, String keyWords, String characteristics, String grades) {
+    public Product(String name, String description, String organization, int price, int numOnTheStock, String infoAboutSales, String[] reviews, String[] keyWords, String[] characteristics, String[] grades) {
         this.name = name;
         this.description = description;
         this.organization = organization;
@@ -50,7 +52,7 @@ public class Product {
                 ", price=" + price +
                 ", numOnTheStock=" + numOnTheStock +
                 ", infoAboutSales='" + infoAboutSales + '\'' +
-                ", reviews='" + reviews + '\'' +
+                ", reviews='" + Arrays.toString(reviews) + '\'' +
                 ", keyWords='" + keyWords + '\'' +
                 ", characteristics='" + characteristics + '\'' +
                 ", grades='" + grades + '\'' +
