@@ -33,6 +33,10 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @OneToMany
+    @JoinColumn
+    private Set<Product> products;
+
     public User(String username, String email, String password, double balance, boolean active) {
         this.username = username;
         this.email = email;
@@ -51,6 +55,7 @@ public class User implements UserDetails {
                 ", balance=" + balance +
                 ", active=" + active +
                 ", roles=" + roles +
+                ", products=" + products +
                 '}';
     }
 

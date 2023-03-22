@@ -1,9 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <link rel="stylesheet" type="text/css" th:href="@{/css/header.css}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-  <title th:text="${title}"></title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -36,8 +34,6 @@
              class="btn btn-danger">Delete</a>
           <a th:href="@{/admin/users/freeze/{id}(id=${user.id})}"
              class="btn btn-info">Freeze</a>
-          <a th:href="@{/admin/users/sendNotif/{id}(id=${user.id})}"
-             class="btn btn-info">Send Notification</a>
         </td>
       </tr>
       </tbody>

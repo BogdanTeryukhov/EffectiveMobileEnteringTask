@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public UserDetails getUserByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+
+    @Override
     public User getByEmail(String email) {
         return userRepo.findByEmail(email).get();
     }
@@ -60,7 +65,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email).get();
-        //System.out.println(userRepo.findByUsername(username).toString());
         return userRepo.findByUsername(user.getUsername());
     }
 }

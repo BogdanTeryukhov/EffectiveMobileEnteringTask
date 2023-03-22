@@ -11,10 +11,6 @@ import java.util.Date;
 @Data
 public class Notification {
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id")
-    private User user;
-
     private String header;
     private Date date;
     private String text;

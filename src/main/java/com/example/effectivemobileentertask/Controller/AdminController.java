@@ -61,23 +61,4 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/sendNotif/{id}")
-    public String createNotification(@PathVariable Long id, Model model){
-        //model.addAttribute("user", userService.getUserById(id));
-        //model.addAttribute("user_id", id);
-        model.addAttribute("notification", new Notification());
-        return "sendNotif";
-    }
-
-    @PostMapping("/send/{id}")
-    public String sendNotification(@PathVariable Long id,
-                                   @ModelAttribute("notification")Notification notification){
-        User user = userService.getUserById(id);
-
-        notification.setDate(new Date());
-        user.getNotifications().add(notification);
-        userService.updateUser(user);
-        System.out.println(user.getNotifications().toString());
-        return "redirect:/admin/users";
-    }
 }
