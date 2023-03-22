@@ -36,6 +36,8 @@
              class="btn btn-danger">Delete</a>
           <a th:href="@{/admin/users/freeze/{id}(id=${user.id})}"
              class="btn btn-info">Freeze</a>
+          <a th:href="@{/admin/users/sendNotif/{id}(id=${user.id})}"
+             class="btn btn-info">Send Notification</a>
         </td>
       </tr>
       </tbody>
