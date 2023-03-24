@@ -61,4 +61,11 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/usersPurchases/{id}")
+    public String userPurchases(@PathVariable Long id,
+                                 Model model){
+        model.addAttribute("purchases", userService.getUserById(id).getProducts());
+        return "myPurchases";
+    }
+
 }
