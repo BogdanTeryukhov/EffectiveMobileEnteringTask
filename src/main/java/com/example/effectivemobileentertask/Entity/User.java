@@ -41,6 +41,10 @@ public class User implements UserDetails {
     @JoinColumn
     private Set<Notification> notifications;
 
+    @OneToMany
+    @JoinColumn
+    private Set<Organization> organizations;
+
     public User(String username, String email, String password, double balance, boolean active) {
         this.username = username;
         this.email = email;

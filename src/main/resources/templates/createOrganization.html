@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Create My organization </title>
+</head>
+<body>
+<form th:action="@{/createOrganization}" method="post" th:object="${organization}">
+    <div><label> Name: <input type="text" name="username" th:field="*{name}"/> </label></div>
+    <div><label> Description :<input type="text" name="email" th:field="*{description}"/></label></div>
+    <div><input type="submit" value="Create"/></div>
+</form>
+</body>
+</html>

@@ -36,13 +36,14 @@
              class="btn btn-info">Freeze</a>
           <a th:href="@{/admin/users/addNotification/{id}(id=${user.id})}"
              class="btn btn-info">Add Notification</a>
-          <a sec:authorize="isAuthenticated()"
-                  th:href="@{/admin/users/usersPurchases/{id}(id=${user.id})}"
-             class="btn btn-success">Purchases by this User (Only for admins)</a>
+          <a th:href="@{/admin/users/usersPurchases/{id}(id=${user.id})}"
+             class="btn btn-success">Purchases by this User</a>
         </td>
       </tr>
       </tbody>
     </table>
+    <a th:href="@{/admin/users/getListOfAppliances}"
+       class="btn btn-success">Appliances for organizations</a>
   </div>
 </main>
 </body>
