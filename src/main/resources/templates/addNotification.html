@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Create Notification</title>
+</head>
+<body>
+
+<form th:action="@{/admin/users/addNote/{id} (id = ${id})}" method="post" th:object="${notification}">
+  <div><label> Header: <input type="text" name="name" th:field="*{header}"/> </label></div>
+  <div><label> Text :<textarea name="description" th:field="*{text}"> </textarea></label></div>
+  <div><input type="submit" value="Create"/></div>
+</form>
+</body>
+</html>

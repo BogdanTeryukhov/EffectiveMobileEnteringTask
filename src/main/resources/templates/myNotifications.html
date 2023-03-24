@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+  <title th:text="${title}"></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+<main>
+  <div class="container">
+    <div class="row">
+      <h1>My notifications</h1>
+    </div>
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th>Header</th>
+        <th>Date</th>
+        <th>Text</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="notification : ${notifications}">
+        <td th:text="${notification.header}"></td>
+        <td th:text="${notification.date}"></td>
+        <td th:text="${notification.text}"></td>
+        <td>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+</body>
+</html>

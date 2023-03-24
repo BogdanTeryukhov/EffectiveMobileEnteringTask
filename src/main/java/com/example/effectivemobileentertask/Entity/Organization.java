@@ -2,13 +2,14 @@ package com.example.effectivemobileentertask.Entity;
 
 import lombok.Data;
 
+import java.awt.*;
 import java.util.Arrays;
 
 @Data
 public class Organization {
     private String name;
     private String description;
-    private int logo;
+    private Image logo;
     private Product[] products;
 
     @Override

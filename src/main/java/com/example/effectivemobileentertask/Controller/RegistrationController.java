@@ -27,8 +27,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String doRegister(@ModelAttribute("user") User user,
-                             Model model){
+    public String doRegister(@ModelAttribute("user") User user){
 
         user.setBalance(0);
         user.setActive(true);
