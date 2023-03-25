@@ -32,6 +32,8 @@
         <td>
           <a th:href="@{/buyProduct/{id}(id=${product.id})}"
              class="btn btn-danger">Buy</a>
+          <a th:href="@{/reviews/{id}(id=${product.id})}"
+             class="btn btn-info">Reviews</a>
         </td>
         <td><a style="color: red" th:text="${lowBalance}"></a></td>
       </tr>

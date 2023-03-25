@@ -3,7 +3,10 @@ package com.example.effectivemobileentertask.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
+import java.util.Timer;
 
 
 @Getter
@@ -21,16 +24,22 @@ public class Product {
     private String description;
     private int price;
     private int numOnTheStock;
+    private boolean active;
 
     @ManyToOne
     @JoinColumn
     private Organization organization;
 
     private String infoAboutSales;
-    private String[] reviews;
+
+    private Set<String> reviews;
+
     private String[] keyWords;
     private String[] characteristics;
-    private String[] grades;
+
+    private Set<Double> grades;
+
+    private Date dateAfterBuying;
 
 
     public Product(String name, String description, int price, int numOnTheStock) {

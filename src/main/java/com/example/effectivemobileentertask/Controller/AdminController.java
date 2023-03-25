@@ -2,9 +2,11 @@ package com.example.effectivemobileentertask.Controller;
 
 import com.example.effectivemobileentertask.Entity.Notification;
 import com.example.effectivemobileentertask.Entity.Organization;
+import com.example.effectivemobileentertask.Entity.Product;
 import com.example.effectivemobileentertask.Entity.User;
 import com.example.effectivemobileentertask.Repository.NotificationsRepository;
 import com.example.effectivemobileentertask.Repository.OrganizationRepository;
+import com.example.effectivemobileentertask.Repository.ProductsRepo;
 import com.example.effectivemobileentertask.Repository.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -27,6 +29,64 @@ public class AdminController {
 
     @Autowired
     private NotificationsRepository notificationsRepository;
+
+    @Autowired
+    private ProductsRepo productsRepo;
+
+
+    public void findAndSaveUserOfTheOrg(Organization organization,
+                                        Notification notification){
+        for (User user: userService.getAllUsers()) {
+            if (user.getOrganizations().contains(organization)){
+                user.getNotifications().add(notification);
+                userService.saveUser(user);
+            }
+        }
+    }
+
+    @GetMapping("/getAllOrgs")
+    public String getAllOrgs(Model model){
+        model.addAttribute("allOrgs",
+                organizationRepository.findAll().stream().filter(Organization::isActive).collect(Collectors.toSet()));
+        return "getAllOrgs";
+    }
+
+    @GetMapping("/deleteOrganization/{id}")
+    public String deleteOrganization(@PathVariable Long id) {
+        Organization organization = organizationRepository.findById(id).get();
+
+        Notification notification =
+                new Notification("Info about your organization appliance",
+                        "The " + organization.getName() + " organization has been banned:(");
+        notification.setDate(new Date());
+        notificationsRepository.save(notification);
+
+        findAndSaveUserOfTheOrg(organization, notification);
+
+        organizationRepository.delete(organization);
+
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/freezeOrganization/{id}")
+    public String freezeOrganization(@PathVariable Long id) {
+        Organization organization = organizationRepository.findById(id).get();
+        organization.setActive(false);
+
+        organization.getProducts().forEach(product -> product.setActive(false));
+        organizationRepository.save(organization);
+
+        Notification notification =
+                new Notification("Info about your organization appliance",
+                        "The " + organization.getName() + " organization has been banned:(");
+        notification.setDate(new Date());
+        notificationsRepository.save(notification);
+
+        findAndSaveUserOfTheOrg(organization, notification);
+
+        return "redirect:/admin/users";
+    }
+
 
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable Long id, Model model) {
@@ -86,6 +146,7 @@ public class AdminController {
     public String activateTheOrganization(@PathVariable Long id){
         Organization organization = organizationRepository.findById(id).get();
         organization.setActive(true);
+        organization.getProducts().forEach(product -> product.setActive(true));
         organizationRepository.save(organization);
 
         Notification notification =
@@ -93,6 +154,32 @@ public class AdminController {
                         "The " + organization.getName() + " organization has been activated");
         notification.setDate(new Date());
         notificationsRepository.save(notification);
+
+        findAndSaveUserOfTheOrg(organization, notification);
+        return "redirect:/admin/users";
+    }
+
+    @GetMapping("/productsAppliances")
+    public String productsAppliances(Model model){
+        Set<Product> nonActivateProducts = productsRepo.findAll().stream().filter(product -> !product.isActive()).collect(Collectors.toSet());
+        model.addAttribute("products", nonActivateProducts);
+        return "productsAppliances";
+    }
+
+    @GetMapping("/activateTheProduct/{id}")
+    public String activateTheProduct(@PathVariable Long id){
+        Product product = productsRepo.findById(id).get();
+        product.setActive(true);
+        productsRepo.save(product);
+
+        Notification notification =
+                new Notification("Info about your product appliance",
+                        "The " + product.getName() + " product has been activated");
+        notification.setDate(new Date());
+        notificationsRepository.save(notification);
+
+        Organization organization = product.getOrganization();
+
 
         for (User user: userService.getAllUsers()) {
             if (user.getOrganizations().contains(organization)){

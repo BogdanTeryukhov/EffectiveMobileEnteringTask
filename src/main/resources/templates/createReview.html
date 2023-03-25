@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Create review </title>
+</head>
+<body>
+
+<form th:action="@{/createReview/{id} (id = ${id})}" method="post" th:object="${product}">
+  <div>
+    <label> Review :<input type="text" name="review" th:object="${review}"/></label>
+  </div>
+  <div>
+    <label> Grade :<input type="text" name="grade" th:object="${grade}"/></label>
+  </div>
+  <div><input type="submit" value="Create"/></div>
+</form>
+</body>
+</html>
