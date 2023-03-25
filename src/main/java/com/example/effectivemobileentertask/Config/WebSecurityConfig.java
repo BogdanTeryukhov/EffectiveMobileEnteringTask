@@ -26,6 +26,7 @@ public class WebSecurityConfig {
                     .authorizeHttpRequests(authorize ->
                             authorize
                                     .requestMatchers("/login","/registration").permitAll()
+                                    .requestMatchers("/admin/***").hasAuthority("ADMIN")
                                     .requestMatchers("/**").fullyAuthenticated()
                     )
                     .formLogin()

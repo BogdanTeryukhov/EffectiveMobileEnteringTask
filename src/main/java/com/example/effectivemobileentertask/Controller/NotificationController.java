@@ -33,6 +33,12 @@ public class NotificationController {
         return "myNotifications";
     }
 
+    @GetMapping("/deleteNotification/{id}")
+    public String deleteNote(@PathVariable Long id){
+        notificationsRepository.deleteById(id);
+        return "redirect:/myNotifications";
+    }
+
     @GetMapping("/admin/users/addNotification/{id}")
     public String createNotification(Model model,
                                      @PathVariable Long id){

@@ -18,7 +18,7 @@ public class Organization {
     private byte logo;
     private boolean active;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn
     private Set<Product> products;
 

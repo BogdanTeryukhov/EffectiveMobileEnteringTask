@@ -27,6 +27,7 @@
         <td th:text="${notification.date}"></td>
         <td th:text="${notification.text}"></td>
         <td>
+          <a class="btn btn-dark" th:href="@{/deleteNotification/{id} (id= ${notification.id})}">Delete Notification</a>
         </td>
       </tr>
       </tbody>

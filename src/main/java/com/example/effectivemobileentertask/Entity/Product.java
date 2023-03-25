@@ -3,10 +3,8 @@ package com.example.effectivemobileentertask.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
-import java.util.Timer;
 
 
 @Getter
@@ -26,7 +24,11 @@ public class Product {
     private int numOnTheStock;
     private boolean active;
 
-    @ManyToOne
+    @ManyToMany
+    @JoinColumn
+    private Set<User> user;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn
     private Organization organization;
 
@@ -47,6 +49,7 @@ public class Product {
         this.price = price;
         this.numOnTheStock = numOnTheStock;
     }
+
 
     @Override
     public String toString() {

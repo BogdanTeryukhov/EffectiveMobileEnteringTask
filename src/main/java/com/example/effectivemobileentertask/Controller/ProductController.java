@@ -42,9 +42,19 @@ public class ProductController {
 
     @PostMapping("/admin/addNewProduct")
     public String makeProduct(@ModelAttribute("product") Product product){
-        product.setOrganization(new Organization("MarketPlace", "Standard marketplace good"));
+        product.setOrganization(organizationRepository.findById(102L).get());
+        product.setActive(true);
         productsRepo.save(product);
         return "redirect:/products";
+    }
+
+    public User getCurrentUser(Organization organization){
+        for (User user: userService.getAllUsers()) {
+            if (user.getOrganizations().contains(organization)){
+                return user;
+            }
+        }
+        return null;
     }
 
     //TODO
