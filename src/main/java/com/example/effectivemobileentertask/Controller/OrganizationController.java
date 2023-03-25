@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @Controller
 public class OrganizationController {
@@ -21,6 +22,14 @@ public class OrganizationController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping("/myOrganizations")
+    public String myOrganizations(Principal principal, Model model){
+        User user = (User) userService.getUserByUsername(principal.getName());
+        model.addAttribute("myOrganizations",
+                user.getOrganizations().stream().filter(Organization::isActive).collect(Collectors.toSet()));
+        return "myOrganizations";
+    }
 
     @GetMapping("/createOrganization")
     public String applyForOrganization(Model model){

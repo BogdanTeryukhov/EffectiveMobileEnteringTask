@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Create Product </title>
+</head>
+<body>
+
+<form th:action="@{/addNewProductByOrganization/{id} (id = ${organization.get().id})}" method="post" th:object="${product}">
+    <div><label> Name: <input type="text" name="name" th:field="*{name}"/> </label></div>
+    <div><label> Description :<input type="text" name="description" th:field="*{description}"/></label></div>
+    <div><label> Price: <input type="text" name="price" th:field="*{price}"/> </label></div>
+    <div><label> Left on the Stock: <input type="text" name="onTheStock" th:field="*{numOnTheStock}"/> </label></div>
+    <div><input type="submit" value="Create"/></div>
+</form>
+</body>
+</html>

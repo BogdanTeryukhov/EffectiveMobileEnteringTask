@@ -1,16 +1,16 @@
 package com.example.effectivemobileentertask.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Arrays;
 
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "organization")
 public class Product {
 
     @Id
@@ -22,14 +22,15 @@ public class Product {
     private int price;
     private int numOnTheStock;
 
+    @ManyToOne
+    @JoinColumn
+    private Organization organization;
 
     private String infoAboutSales;
-    private String organization;
     private String[] reviews;
     private String[] keyWords;
     private String[] characteristics;
     private String[] grades;
-
 
 
     public Product(String name, String description, int price, int numOnTheStock) {
@@ -42,17 +43,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "Id=" + Id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", organization='" + organization + '\'' +
-                ", price=" + price +
-                ", numOnTheStock=" + numOnTheStock +
-                ", infoAboutSales='" + infoAboutSales + '\'' +
-                ", reviews='" + Arrays.toString(reviews) + '\'' +
-                ", keyWords='" + Arrays.toString(keyWords) + '\'' +
-                ", characteristics='" + Arrays.toString(characteristics) + '\'' +
-                ", grades='" + Arrays.toString(grades) + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }
