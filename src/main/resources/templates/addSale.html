@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <title>Create Sale</title>
+</head>
+<body>
+
+<form th:action="@{/admin/users/addSale/{id} (id = ${id})}" method="post" th:object="${salesInfo}">
+  <div><label> Volume: <input type="text" name="volume" th:field="*{volumeOfTheSale}"/> </label></div>
+  <div><label> Duration: <input type="text" name="time" th:field="*{durationInDays}" placeholder="in days"/> </label></div>
+  <div><input type="submit" value="Create"/></div>
+</form>
+</body>
+</html>

@@ -1,18 +1,13 @@
 package com.example.effectivemobileentertask.Controller;
 
-import com.example.effectivemobileentertask.Entity.Notification;
-import com.example.effectivemobileentertask.Entity.Organization;
-import com.example.effectivemobileentertask.Entity.Product;
-import com.example.effectivemobileentertask.Entity.User;
-import com.example.effectivemobileentertask.Repository.NotificationsRepository;
-import com.example.effectivemobileentertask.Repository.OrganizationRepository;
-import com.example.effectivemobileentertask.Repository.ProductsRepo;
-import com.example.effectivemobileentertask.Repository.UserService;
+import com.example.effectivemobileentertask.Entity.*;
+import com.example.effectivemobileentertask.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.example.effectivemobileentertask.Controller.ProductController.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -32,6 +27,9 @@ public class AdminController {
 
     @Autowired
     private ProductsRepo productsRepo;
+
+    @Autowired
+    private SalesInfoRepository salesInfoRepository;
 
 
     public void findAndSaveUserOfTheOrg(Organization organization,
@@ -181,12 +179,40 @@ public class AdminController {
         Organization organization = product.getOrganization();
 
 
-        for (User user: userService.getAllUsers()) {
-            if (user.getOrganizations().contains(organization)){
-                user.getNotifications().add(notification);
-                userService.saveUser(user);
-            }
-        }
+        findAndSaveUserOfTheOrg(organization,notification);
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/adminsProducts")
+    public String adminsProducts(Model model){
+        ProductController.checkCurrentSales(salesInfoRepository,productsRepo);
+        model.addAttribute("products", productsRepo.findAll());
+        return "adminsProducts";
+    }
+
+    @GetMapping("/addSale/{id}")
+    public String addSale(@PathVariable Long id, Model model){
+        //model.addAttribute("name", "");
+        model.addAttribute("salesInfo", new SalesInfo());
+        return "addSale";
+    }
+
+    @PostMapping("/addSale/{id}")
+    public String createSale(@PathVariable Long id,
+                             @ModelAttribute("salesInfo") SalesInfo salesInfo){
+        Product product = productsRepo.findById(id).get();
+
+        if (salesInfo.getProducts() == null){
+            salesInfo.setProducts(Collections.singleton(product));
+        }else {
+            salesInfo.getProducts().add(product);
+        }
+        salesInfo.setStartOfTheSale(new Date());
+
+        salesInfoRepository.save(salesInfo);
+        product.setInfoAboutSales(product.getPrice());
+        product.setPrice(product.getPrice() - (((double)salesInfo.getVolumeOfTheSale() / 100) *product.getPrice()));
+        productsRepo.save(product);
+        return "redirect:/admin/users/adminsProducts";
     }
 }

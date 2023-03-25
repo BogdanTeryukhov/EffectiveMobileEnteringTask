@@ -22,7 +22,7 @@ public class Product {
 
     private String name;
     private String description;
-    private int price;
+    private double price;
     private int numOnTheStock;
     private boolean active;
 
@@ -30,10 +30,9 @@ public class Product {
     @JoinColumn
     private Organization organization;
 
-    private String infoAboutSales;
+    private double infoAboutSales;
 
     private Set<String> reviews;
-
     private String[] keyWords;
     private String[] characteristics;
 

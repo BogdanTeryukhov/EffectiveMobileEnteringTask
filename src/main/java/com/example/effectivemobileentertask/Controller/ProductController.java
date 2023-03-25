@@ -1,11 +1,9 @@
 package com.example.effectivemobileentertask.Controller;
 
-import com.example.effectivemobileentertask.Entity.Organization;
-import com.example.effectivemobileentertask.Entity.Product;
-import com.example.effectivemobileentertask.Entity.Role;
-import com.example.effectivemobileentertask.Entity.User;
+import com.example.effectivemobileentertask.Entity.*;
 import com.example.effectivemobileentertask.Repository.OrganizationRepository;
 import com.example.effectivemobileentertask.Repository.ProductsRepo;
+import com.example.effectivemobileentertask.Repository.SalesInfoRepository;
 import com.example.effectivemobileentertask.Repository.UserService;
 import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,9 @@ public class ProductController {
 
     @Autowired
     private OrganizationRepository organizationRepository;
+
+    @Autowired
+    private SalesInfoRepository salesInfoRepository;
 
 
     @GetMapping("/admin/addNewProduct")
@@ -72,9 +73,25 @@ public class ProductController {
         return "redirect:/products";
     }
 
+    public static void checkCurrentSales(SalesInfoRepository salesInfoRepository,
+                                         ProductsRepo productsRepo){
+        Date currentDate = new Date();
+        for (SalesInfo sale: salesInfoRepository.findAll()) {
+            for (Product product: sale.getProducts()) {
+                if (currentDate.getTime() - sale.getStartOfTheSale().getTime() > sale.getDurationInDays()* 86400000L){
+                    product.setPrice(product.getInfoAboutSales());
+                    product.setInfoAboutSales(0.0);
+                    salesInfoRepository.delete(sale);
+                    productsRepo.save(product);
+                }
+            }
+        }
+    }
+
     @GetMapping("/products")
     public String getListOfProducts(Model model,
                                     @ModelAttribute("lowBalance") String lowBalance){
+        checkCurrentSales(salesInfoRepository,productsRepo);
         model.addAttribute("products",
                 productsRepo.findAll().stream().filter(Product::isActive).collect(Collectors.toSet()));
         return "products";
